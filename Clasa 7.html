@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Întrebări istorie clasa a VII-a</title>
+    <style>
+        /* CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-image: url('images/background1.jpg'); /* Calea către imaginea de fundal */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8); /* O ușoară transparență pentru vizibilitate mai bună a textului */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #question-box {
+            margin: 20px 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Întrebări istorie clasa a VII-a</h1>
+        <div id="question-box">
+            <p id="question"></p>
+        </div>
+        <button id="next-btn" onclick="nextQuestion()">Începe testul</button>
+    </div>
+
+    <script>
+        // JavaScript
+        const questions = [
+            "Cum ajunge Napoleon Bonaparte împărat?", 
+            "Enumeră 2 bătălii din timpul domniei lui Napoleon Bonaparte.", 
+            "Care sunt statele participante la Congresul de la Viena și ce scop a avut acesta?", 
+            "Cât timp a durat Congresul de la Viena și cu ce s-a încheiat?", 
+            "Ce țară nu semnează Actul final și de ce?", 
+            "Care sunt revoluțiile ce au apărut în Europa după crearea Sfintei Alianțe?", 
+            "Ce revoluții apar în Europa la mijlocul sec. al XIX-lea?", 
+            "Explică termenul de „națiune„ și ce state apar în Europa pe baza acestei idei?", 
+            "Prezintă crearea Germaniei.", 
+            "Prezintă crearea Italiei.", 
+            "Ce înseamnă „revoluție industrială„ și unde a apărut?", 
+            "Cine brevetează „motorul cu abur„ și în ce an?", 
+            "În ce domenii se răspândește revoluția industrială?", 
+            "Prezintă revoluția transporturilor.", 
+            "Prezintă revoluția agrară.", 
+            "Explică următorii termeni: monarhie absolută, revoluție industrială, pașoptist.", 
+            "Prin ce se remarcă domnia lui Napoleon Bonaparte?", 
+            "Ce scop a avut Sfânta Alianță?", 
+        ];
+
+        let currentIndex = 0;
+        let currentRound = [];
+        let roundsCompleted = 0;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startNewRound() {
+            currentIndex = 0;
+            currentRound = shuffleArray([...questions]).slice(0, 10);
+            document.getElementById('question').textContent = "";
+            document.getElementById('next-btn').textContent = "Următoarea întrebare";
+            document.getElementById('next-btn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentIndex >= 10) {
+                document.getElementById('question').textContent = "Ai terminat setul de 10 întrebări!";
+                document.getElementById('next-btn').textContent = "Începe testul";
+                document.getElementById('next-btn').disabled = true;
+
+                setTimeout(() => {
+                    startNewRound();
+                }, 3000);
+                return;
+            }
+
+            document.getElementById('question').textContent = currentRound[currentIndex];
+            currentIndex++;
+
+            if (currentIndex < 10) {
+                document.getElementById('next-btn').textContent = "Următoarea întrebare";
+            }
+        }
+
+        startNewRound();
+    </script>
+</body>
+</html>
+
